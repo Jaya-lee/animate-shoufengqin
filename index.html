@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手风琴效果</title>
+	<style>
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+} 
+
+
+.clearfix:before,
+.clearfix:after {       
+    content: "";     /*内容为“.”就是一个英文的句号而已。也可以不写。*/
+    display: block;   /*加入的这个元素转换为块级元素。*/
+    clear: both;     /*清除左右两边浮动。*/
+    visibility: hidden;      /*可见度设为隐藏。注意它和display:none;是有区别的。visibility:hidden;仍然占据空间，只是看不到而已；*/
+    line-height: 0;    /*行高为0；*/
+    height: 0;     /*高度为0；*/
+    font-size:0;    /*字体大小为0；*/
+}
+
+		.box{
+			width: 700px;
+			overflow: hidden;
+			position: relative;
+			margin:0 auto;
+		}
+		img{
+			width: 400px;
+			display: block;
+			position: absolute;
+			top:0;
+			
+		}
+
+	</style>
+</head>
+<body>
+		<div class="box ">
+			<img src="images/1.jpg" alt="">
+			<img src="images/2.jpg" alt="">
+			<img src="images/3.jpg" alt="">
+			<img src="images/4.jpg" alt="">
+			<img src="images/5.jpg" alt="">
+			<img src="images/6.jpg" alt="">
+			<img src="images/7.jpg" alt="">
+		</div>
+	
+	<script src="jquery-3.1.1.js"></script>
+	<script>
+		$(".box").height($("img").height());
+			var left=$(".box").width()/$("img").length;
+		$(".box img").each(function(){
+			var num=$(this).index();
+			$(this).css("left",num*left);
+		})
+		$(".box img").hover(function(){
+			var num1=$(this).index();
+			var left1=($(".box").width()-$("img").width()) /($("img").length-1);
+			var wid=$("img").width()
+				$(".box img").each(function(){
+					var num2=$(this).index();
+					 if(num2<=num1){
+					$(this).stop().animate({"left":num2*left1},500);
+					}else{
+						$(this).stop().animate({"left":(num2-1)*left1+wid},500)
+					}
+				})
+			})
+			$(".box").mouseleave(function(){
+				$("img").each(function(){
+				var num3=$(this).index();
+				$(this).stop().animate({"left":num3*left},500)
+			})
+		})
+	</script>
+</body>
+</html>
